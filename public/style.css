@@ -1,0 +1,162 @@
+/* === Genel Sayfa Stilleri === */
+body {
+    background-color: #1b2838; /* Steam'in koyu mavi arkaplanı */
+    color: #c7d5e0;            /* Açık gri/mavi metin rengi */
+    font-family: Arial, sans-serif; /* Okunaklı bir yazı tipi */
+    margin: 0;
+    padding: 0;
+}
+
+/* === Header ve Navigasyon Menüsü === */
+header {
+    background-color: #171a21; /* Biraz daha koyu bir header arkaplanı */
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Başlık ve menüyü iki yana yaslar */
+}
+
+header h1 {
+    color: #66c0f4; /* Steam'in mavi marka rengi */
+    margin: 0;
+    font-size: 28px;
+}
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Liste noktalarını kaldırır */
+}
+
+header nav ul li {
+    display: inline-block; /* Menü elemanlarını yan yana dizer */
+    margin-left: 20px;
+}
+
+header nav a {
+    color: #c7d5e0;
+    text-decoration: none; /* Linklerin altındaki çizgiyi kaldırır */
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s; /* Yumuşak geçiş efekti */
+}
+
+header nav a:hover {
+    background-color: #66c0f4; /* Fare üzerine gelince arkaplanı mavi yap */
+    color: #ffffff;           /* Fare üzerine gelince metni beyaz yap */
+}
+
+/* === Ana İçerik Alanı === */
+main {
+    padding: 20px 40px;
+}
+
+main h2 {
+    color: #ffffff;
+    border-bottom: 2px solid #66c0f4; /* Başlıkların altına mavi bir çizgi */
+    padding-bottom: 10px;
+}
+
+/* === Oyun Kartı Stilleri (Mağaza Sayfası İçin) === */
+section {
+    margin-bottom: 40px;
+}
+
+.oyun-karti {
+    display: inline-block; /* Kartları yan yana dizer */
+    background-color: #2a475e;
+    border-radius: 5px;
+    margin-right: 20px;
+    width: 200px;
+    text-align: center;
+    padding-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Hafif bir gölge efekti */
+}
+
+.oyun-karti img {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.oyun-karti h3 {
+    color: #ffffff;
+    margin: 10px 0;
+}
+
+.oyun-karti p {
+    color: #a0b9d0;
+    margin: 0;
+    font-weight: bold;
+}
+
+.oyun-karti p del {
+    color: #888888;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+
+/* === Footer (Alt Bilgi) === */
+footer {
+    background-color: #171a21;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 14px;
+}
+/* style.css dosyasının en sonuna ekle */
+.satin-al-btn {
+    background-color: #70a83b; /* Yeşil satın al butonu */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.satin-al-btn:hover {
+    background-color: #8ed059;
+}
+/* Kütüphane Sayfası Stilleri */
+.oyun-ogesi {
+  background-color: #2a475e;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.oyun-ogesi-resim {
+  width: 130px;
+  height: auto;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.oyun-ogesi-bilgi {
+  padding: 10px 20px;
+  flex-grow: 1; /* Kalan tüm boşluğu kapla */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.oyun-ogesi-bilgi h3 {
+  margin: 0;
+  color: #c7d5e0;
+}
+
+.oyna-btn {
+  background-color: #66c0f4;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}

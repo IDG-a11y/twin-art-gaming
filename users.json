@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "username": "oyuncu1",
+    "library": [
+      3
+    ]
+  },
+  {
+    "id": 2,
+    "username": "Arel",
+    "password": "$2b$10$0NSthlZrAQN/fganSWG2K.0sBRLbB9BsHknWUAlV/c2inmeR4YZt2",
+    "library": [
+      2
+    ]
+  }
+]

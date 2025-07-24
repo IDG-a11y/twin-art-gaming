@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Oyun Adı 1",
+    "price": "₺150,00",
+    "image": "https://via.placeholder.com/200x300"
+  },
+  {
+    "id": 2,
+    "name": "Oyun Adı 2",
+    "price": "₺250,00",
+    "image": "https://via.placeholder.com/200x300"
+  },
+  {
+    "id": 3,
+    "name": "Oyun Adı 3",
+    "price": "₺50,00",
+    "original_price": "₺100,00",
+    "image": "https://via.placeholder.com/200x300"
+  }
+]
