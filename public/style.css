@@ -160,3 +160,25 @@ footer {
   border-radius: 4px;
   cursor: pointer;
 }
+/* Arama Çubuğu Stilleri */
+.search-container {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#search-box {
+    width: 50%;
+    padding: 12px 15px;
+    background-color: #2a475e;
+    border: 1px solid #1b2838;
+    border-radius: 5px;
+    color: #c7d5e0;
+    font-size: 16px;
+    outline: none; /* Tıklama çerçevesini kaldır */
+    transition: all 0.3s;
+}
+
+#search-box:focus {
+    border-color: #66c0f4;
+    box-shadow: 0 0 8px rgba(102, 192, 244, 0.5);
+}

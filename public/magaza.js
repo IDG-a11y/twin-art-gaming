@@ -1,52 +1,75 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const oneCikanlarBolumu = document.querySelector('#one-cikanlar');
-  
-  oneCikanlarBolumu.innerHTML = '<h2>Öne Çıkan ve Popüler</h2>';
+    const oneCikanlarBolumu = document.querySelector('#one-cikanlar');
+    const searchBox = document.getElementById('search-box');
+    const userId = 1; // Bu ID'yi oturumdan almak daha doğru olur ama şimdilik böyle kalabilir
 
-  // Sunucudan oyunları çek ve ekrana çiz
-  fetch('/api/games')
-    .then(response => response.json())
-    .then(games => {
-      games.forEach(oyun => {
-        const oyunKarti = document.createElement('div');
-        oyunKarti.className = 'oyun-karti';
+    // OYUNLARI ÇEKEN VE EKRANA ÇİZEN FONKSİYON
+    function fetchAndRenderGames(searchTerm = '') {
+        // Arama terimini URL'ye ekliyoruz
+        const gamesUrl = `/api/games?search=${encodeURIComponent(searchTerm)}`;
+        const libraryUrl = `/api/library`; // Bu endpoint userId'yi oturumdan alıyor
 
-        oyunKarti.innerHTML = `
-          <img src="${oyun.image}" alt="${oyun.name} Kapak">
-          <h3>${oyun.name}</h3>
-          <p>${oyun.price}</p>
-          <button class="satin-al-btn" data-game-id="${oyun.id}">Satın Al</button>
-        `;
+        oneCikanlarBolumu.innerHTML = '<h2>Öne Çıkan ve Popüler</h2>';
 
-        oneCikanlarBolumu.appendChild(oyunKarti);
-      });
+        Promise.all([
+            fetch(gamesUrl),
+            fetch(libraryUrl).then(res => res.ok ? res.json() : []) // Giriş yapılmamışsa boş dizi döner
+        ])
+        .then(responses => Promise.all(responses.map(res => res.json())))
+        .then(([allGames, libraryGames]) => {
+            const ownedGameIds = new Set(libraryGames.map(game => game.id));
+
+            if (allGames.length === 0) {
+                 oneCikanlarBolumu.innerHTML += '<p>Aradığınız kriterlere uygun oyun bulunamadı.</p>';
+            }
+
+            allGames.forEach(game => {
+                const oyunKarti = document.createElement('div');
+                oyunKarti.className = 'oyun-karti';
+                const isOwned = ownedGameIds.has(game.id);
+                const buttonHtml = isOwned 
+                    ? `<button class="in-library-btn" disabled>Kütüphanede</button>`
+                    : `<button class="satin-al-btn" data-game-id="${game.id}">Satın Al</button>`;
+
+                oyunKarti.innerHTML = `
+                    <img src="${game.image}" alt="${game.name} Kapak">
+                    <h3>${game.name}</h3>
+                    <p>${game.price}</p>
+                    ${buttonHtml} 
+                `;
+                oneCikanlarBolumu.appendChild(oyunKarti);
+            });
+        })
+        .catch(error => console.error('Oyunlar yüklenirken hata:', error));
+    }
+
+    // ARAMA KUTUSUNU DİNLEME
+    searchBox.addEventListener('input', (event) => {
+        const searchTerm = event.target.value;
+        fetchAndRenderGames(searchTerm);
     });
 
-  // YENİ: Satın alma butonlarına tıklamayı dinle
-  // Not: Bu olayı direkt butonlara değil, kapsayıcıya ekliyoruz (Event Delegation)
-  // Bu sayede sonradan eklenen butonlar için de çalışır.
-  oneCikanlarBolumu.addEventListener('click', (event) => {
-    // Tıklanan eleman bir satın alma butonu mu?
-    if (event.target.classList.contains('satin-al-btn')) {
-      const gameId = parseInt(event.target.dataset.gameId); // Butonun data-game-id'sini al
+    // SATIN ALMA OLAYINI DİNLEME
+    oneCikanlarBolumu.addEventListener('click', (event) => {
+        if (event.target.classList.contains('satin-al-btn')) {
+            const gameId = parseInt(event.target.dataset.gameId);
+            fetch('/api/buy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gameId: gameId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Butonu anında güncellemek için arama kutusundaki terimle listeyi yenile
+                    fetchAndRenderGames(searchBox.value);
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+    });
 
-      // Sunucuya satın alma isteği gönder
-      fetch('/api/buy', {
-        method: 'POST', // Metodumuz POST
-        headers: {
-          'Content-Type': 'application/json', // Gönderdiğimiz verinin tipini belirtiyoruz
-        },
-        body: JSON.stringify({ gameId: gameId }), // Göndereceğimiz veri
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Sunucudan gelen yanıtı kullanıcıya göster
-        alert(data.message); 
-      })
-      .catch(error => {
-        console.error('Satın alma sırasında hata:', error);
-        alert('Bir hata oluştu, lütfen tekrar deneyin.');
-      });
-    }
-  });
+    // Sayfa ilk yüklendiğinde tüm oyunları getir
+    fetchAndRenderGames();
 });

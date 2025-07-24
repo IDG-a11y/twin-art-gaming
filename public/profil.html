@@ -7,40 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-        <h1>Twin-Art Gaming</h1>
+        <h1><a href="/" style="text-decoration: none; color: #66c0f4;">Twin-Art Gaming</a></h1>
         <nav>
-            <ul>
-                <li><a href="index.html">Mağaza</a></li>
-                <li><a href="kutuphane.html">Kütüphane</a></li>
-                <li><a href="topluluk.html">Topluluk</a></li>
-                <li><a href="profil.html">Profil</a></li>
-            </ul>
+            <ul></ul>
         </nav>
     </header>
-
     <main>
         <h2>Kullanıcı Profilim</h2>
-        <div class="profil-bilgileri">
-            <img src="https://via.placeholder.com/150" alt="Profil Resmi">
-            <h3>Kullanıcı Adı</h3>
-            <p>Seviye: 24</p>
-            <p>Favori Oyun: Oyun Adı 1</p>
-        </div>
-        <div class="arkadas-listesi">
-            <h4>Arkadaşlar</h4>
-            <ul>
-                <li>Arkadaş 1</li>
-                <li>Arkadaş 2</li>
-                <li>Arkadaş 3</li>
-            </ul>
+        <div id="profil-bilgileri" style="background-color: #2a475e; padding: 20px; border-radius: 5px;">
+            <p><strong>Kullanıcı Adı:</strong> <span id="profile-username">Yükleniyor...</span></p>
+            <p><strong>Kütüphanedeki Oyun Sayısı:</strong> <span id="profile-game-count">Yükleniyor...</span></p>
+            <p><strong>Kayıt Tarihi:</strong> <span id="profile-join-date">Yükleniyor...</span></p>
         </div>
     </main>
-
     <footer>
         <p>&copy; 2025 Twin-Art Gaming. Tüm hakları saklıdır.</p>
     </footer>
-
+    <script src="app.js"></script>
+    <script src="profil.js"></script>
 </body>
 </html>
